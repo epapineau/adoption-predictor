@@ -5,6 +5,7 @@ from flask import (
     jsonify,
     request,
     redirect)
+from werkzeug.routing import BaseConverter
 from flask_sqlalchemy import SQLAlchemy
 
 # Flask setup
@@ -48,6 +49,19 @@ class Pet_Class(db.Model):
     def __repr__(self):
         return '<Pet_Class %r>' % (self.PetID)
 
+# Define class for accepting variable args
+class ListConverter(BaseConverter):
+
+    def to_python(self, value):
+        return value.split('+')
+
+    def to_url(self, values):
+        return '+'.join(BaseConverter.to_url(value)
+                        for value in values)
+
+# Add listconverter 
+app.url_map.converters['list'] = ListConverter
+
 @app.before_first_request
 def setup():
     db.create_all()
@@ -58,8 +72,8 @@ def index():
     return render_template("index.html")
 
 # Route to serve up SQLite file
-@app.route("/api/train-data/")
-def getdb():
+@app.route("/api/train-data/<list:cols>")
+def getdb(cols):
     # Query for full table
     results = db.session.query(Pet_Class.Type, Pet_Class.Name, Pet_Class.Age,
                                Pet_Class.Breed1, Pet_Class.Breed2, Pet_Class.Color1,
@@ -93,8 +107,11 @@ def getdb():
                 }
 
     # Extract only requested portions of dictionary
+    reqDict = {}
+    for col in cols:
+        reqDict[col] = fullDict[col]
 
-    return jsonify(fullDict)
+    return jsonify(reqDict)
 
 # Route to serve up 
 @app.route("/data")
