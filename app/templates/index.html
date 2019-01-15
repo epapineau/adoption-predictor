@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <title>Adoption Predictor</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Logo -->
+    <div class = "container my-3">
+        <img src = "/static/PetFinder_Logo.png" class = "d-block w-100">
+    </div>
+
+    <!-- Not mobile friendly yet; fix using bg-primary in nav class -->
+    <!-- Begin navbar -->
+    <div class = "container my-3 d-flex justify-content-around">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a href = "/"><button class="btn btn-lg btn-outline-success rounded mr-5" type="button">About the Project</button></a>                    </li>
+                        <!-- <a class="nav-link" href="#">About the Project</a> -->
+                    <li class="nav-item">
+                        <a href = "/data"><button class="btn btn-lg btn-outline-danger rounded mr-5" type="button">Explore the Data</button></a>
+                        <!-- <a class="nav-link" href="#">Explore the Data</a> -->
+                    </li>
+                    <li class="nav-item">
+                        <a href = "/model"><button class="btn btn-lg btn-outline-info rounded mr-5" type="button">Make a Prediction</button></a>
+                        <!-- <a class="nav-link" href="#">Make a Prediction</a> -->
+                    </li>
+                        <a href = "/sources"><button class="btn btn-lg btn-outline-warning rounded" type="button">Data Sources</button></a>
+                        <!-- <a class="nav-link" href="#">Data Source</a> -->
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class = "container bg-info rounded py-3">
+        <div class = "container bg-light rounded px-3 py-2">
+            <h3>Project Overview</h3>
+            <p>Millions of stray animals suffer on the streets or are euthanized in shelters every day around the world. If homes can be found for them, many precious lives can be saved — and more happy families created.</p>
+            <p>PetFinder.my has been Malaysia’s leading animal welfare platform since 2008, with a database of more than 150,000 animals. PetFinder collaborates closely with animal lovers, media, corporations, and global organizations to improve animal welfare.</p>
+            <p>Animal adoption rates are strongly correlated to the metadata associated with their online profiles, such as descriptive text and photo characteristics. As one example, PetFinder is currently experimenting with a simple AI tool called the Cuteness Meter, which ranks how cute a pet is based on qualities present in their photos.</p>
+            <p>In this competition you will be developing algorithms to predict the adoptability of pets - specifically, how quickly is a pet adopted? If successful, they will be adapted into AI tools that will guide shelters and rescuers around the world on improving their pet profiles' appeal, reducing animal suffering and euthanization.</p>
+            <h3>Data Approaches</h3>
+        </div>
+    </div>
+</body>
+
+<!-- Javascript -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>

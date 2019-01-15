@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <title>Adoption Predictor</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Colors -->
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Logo -->
+    <div class = "container my-3">
+        <img src = "/static/PetFinder_Logo.png" class = "d-block w-100">
+    </div>
+
+    <!-- Not mobile friendly yet; fix using bg-primary in nav class -->
+    <!-- Begin navbar -->
+    <div class = "container my-3 d-flex justify-content-around">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a href = "/"><button class="btn btn-lg btn-outline-success rounded mr-5" type="button">About the Project</button></a>                    </li>
+                        <!-- <a class="nav-link" href="#">About the Project</a> -->
+                    <li class="nav-item">
+                        <a href = "/data"><button class="btn btn-lg btn-outline-danger rounded mr-5" type="button">Explore the Data</button></a>
+                        <!-- <a class="nav-link" href="#">Explore the Data</a> -->
+                    </li>
+                    <li class="nav-item">
+                        <a href = "/model"><button class="btn btn-lg btn-outline-info rounded mr-5" type="button">Make a Prediction</button></a>
+                        <!-- <a class="nav-link" href="#">Make a Prediction</a> -->
+                    </li>
+                        <a href = "/sources"><button class="btn btn-lg btn-outline-warning rounded" type="button">Data Sources</button></a>
+                        <!-- <a class="nav-link" href="#">Data Source</a> -->
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class = "container bg-info rounded py-3">
+        <div class = "container bg-light rounded px-3 py-2">
+            <h3>Predict Against the Model</h3>
+
+
+
+            <!-- Begin Form class -->
+            <div class="card bg-light mx-auto w-75 my-3">
+                <div class="card-body">
+                    <h6 class="card-title">Fill out this form to run a prediction against the model. Please note that missing data will be infered.</h6>
+                    <p class="card-text">
+                        <form method = "POST" action = "/send" role = "form" name = "petform">
+                            <div class="form-group px-2">
+                                <label for="inputType">Type of Pet</label>
+                                <select class="custom-select" id="inputType" name = "petType">
+                                    <option selected value="1">Dog</option>
+                                    <option value="2">Cat</option>
+                                    <option value="3">Bird</option>
+                                    <option value="4">Fish</option>
+                                </select>
+                            </div>
+                            <div class="form-group px-2">
+                                <label for="inputName">Pet Name</label>
+                                <input type="text" class="form-control" id="inputName" name="petName" placeholder="Fluffy">
+                            </div>
+                            <div class="form-group px-2">
+                                <label for="inputCity">City</label>
+                                <input type="text" class="form-control" id="inputCity" name="petCity" placeholder="Chicago">
+                            </div>
+                            <div class="form-group px-2">
+                                <label for="inputCountry">Country</label>
+                                <select class="custom-select" id="inputCountry" name="petCountry">
+                                    <!-- D3 country drop down -->
+                                </select>
+                            </div>
+                            <div class="form-group px-2">
+                                <input type="submit" value="submit" class="btn btn-primary rounded">
+                            </div>
+                        </form>
+                    </p>
+                </div>
+            </div>  <!-- End Card Class-->
+
+
+
+
+
+
+
+        </div>
+    </div>
+</body>
+
+<!-- Javascript -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
