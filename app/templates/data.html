@@ -9,7 +9,7 @@
     <!-- Colors -->
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <!-- Logo -->
@@ -28,8 +28,9 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a href = "/"><button class="btn btn-lg btn-outline-success rounded mr-5" type="button">About the Project</button></a>                    </li>
+                        <a href = "/"><button class="btn btn-lg btn-outline-success rounded mr-5" type="button">About the Project</button></a>
                         <!-- <a class="nav-link" href="#">About the Project</a> -->
+                    </li>
                     <li class="nav-item">
                         <a href = "/data"><button class="btn btn-lg btn-outline-danger rounded mr-5" type="button">Explore the Data</button></a>
                         <!-- <a class="nav-link" href="#">Explore the Data</a> -->
@@ -38,6 +39,7 @@
                         <a href = "/model"><button class="btn btn-lg btn-outline-info rounded mr-5" type="button">Make a Prediction</button></a>
                         <!-- <a class="nav-link" href="#">Make a Prediction</a> -->
                     </li>
+                    <li class="nav-item">
                         <a href = "/sources"><button class="btn btn-lg btn-outline-warning rounded" type="button">Data Sources</button></a>
                         <!-- <a class="nav-link" href="#">Data Source</a> -->
                     </li>
@@ -50,8 +52,8 @@
     <div class = "container bg-info rounded py-3">
         <div class = "container bg-light rounded px-3 py-2">
             <h3>What factors have the most influence on adoption speed?</h3>
-            <p>Age </p>
-
+            <p>Before we delve too far into the dataset, let's first explore the distribution of data across our different variables. Please select a variable to view a whisker box plot of the variable distribution, categorized by adoption speeds.</p>
+            <div id = "whisker-select-var"></div>
         </div>
     </div>
 </body>
@@ -60,4 +62,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+<script src="/static/js/metadata-whisker.js"></script>
 </html>
