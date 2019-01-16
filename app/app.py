@@ -74,44 +74,50 @@ def index():
 # Route to serve up SQLite file
 @app.route("/api/train-data/<list:cols>")
 def getdb(cols):
-    # Query for full table
-    results = db.session.query(Pet_Class.Type, Pet_Class.Name, Pet_Class.Age,
-                               Pet_Class.Breed1, Pet_Class.Breed2, Pet_Class.Color1,
-                               Pet_Class.Color2, Pet_Class.Color3, Pet_Class.Dewormed,
-                               Pet_Class.Fee, Pet_Class.FurLength, Pet_Class.Gender,
-                               Pet_Class.Health, Pet_Class.MaturitySize,
-                               Pet_Class.MeanSentimentScore, Pet_Class.PhotoAmt,
-                               Pet_Class.Quantity, Pet_Class.State, Pet_Class.Sterilized,
-                               Pet_Class.Vaccinated, Pet_Class.VideoAmt).all()
 
-    # Transform table into dictionary
-    fullDict = {'Type': [result[0] for result in results],
-                'Name': [result[1] for result in results],
-                'Age': [result[2] for result in results],
-                'Breed1': [result[3] for result in results],
-                'Breed2': [result[4] for result in results],
-                'Color1': [result[5] for result in results],
-                'Color2': [result[6] for result in results],
-                'Color3': [result[7] for result in results],
-                'Dewormed': [result[8] for result in results],
-                'Fee': [result[9] for result in results],
-                'FurLength': [result[10] for result in results],
-                'Gender': [result[11] for result in results],
-                'Health': [result[12] for result in results],
-                'MaturitySize': [result[13] for result in results],
-                'MeanSentimentScore': [result[14] for result in results],
-                'Quantity': [result[15] for result in results],
-                'State': [result[16] for result in results],
-                'Sterilized': [result[17] for result in results],
-                'VideoAmt': [result[18] for result in results]
-                }
+    # Create dictionaries of desired column for each adoption speed
+    dictBySpeed = {}
+    for speed in range(5):
+        # Query for full table
+        results = db.session.query(Pet_Class.Type, Pet_Class.Name, Pet_Class.Age,
+                                Pet_Class.Breed1, Pet_Class.Breed2, Pet_Class.Color1,
+                                Pet_Class.Color2, Pet_Class.Color3, Pet_Class.Dewormed,
+                                Pet_Class.Fee, Pet_Class.FurLength, Pet_Class.Gender,
+                                Pet_Class.Health, Pet_Class.MaturitySize,
+                                Pet_Class.MeanSentimentScore, Pet_Class.PhotoAmt,
+                                Pet_Class.Quantity, Pet_Class.State, Pet_Class.Sterilized,
+                                Pet_Class.Vaccinated, Pet_Class.VideoAmt).filter(Pet_Class.AdoptionSpeed == speed).all()
 
-    # Extract only requested portions of dictionary
-    reqDict = {}
-    for col in cols:
-        reqDict[col] = fullDict[col]
+        # Transform table into dictionary
+        fullDict = {'Type': [result[0] for result in results],
+                    'Name': [result[1] for result in results],
+                    'Age': [result[2] for result in results],
+                    'Breed1': [result[3] for result in results],
+                    'Breed2': [result[4] for result in results],
+                    'Color1': [result[5] for result in results],
+                    'Color2': [result[6] for result in results],
+                    'Color3': [result[7] for result in results],
+                    'Dewormed': [result[8] for result in results],
+                    'Fee': [result[9] for result in results],
+                    'FurLength': [result[10] for result in results],
+                    'Gender': [result[11] for result in results],
+                    'Health': [result[12] for result in results],
+                    'MaturitySize': [result[13] for result in results],
+                    'MeanSentimentScore': [result[14] for result in results],
+                    'Quantity': [result[15] for result in results],
+                    'State': [result[16] for result in results],
+                    'Sterilized': [result[17] for result in results],
+                    'VideoAmt': [result[18] for result in results],
+                    }
 
-    return jsonify(reqDict)
+        # Extract only requested portions of dictionary
+        reqDict = {}
+        for col in cols:
+            reqDict[col] = fullDict[col]
+        
+        dictBySpeed[speed] = reqDict
+
+    return jsonify(dictBySpeed)
 
 # Route to serve up 
 @app.route("/data")
