@@ -92,8 +92,8 @@ def getdb(cols):
                                 Pet_Class.MeanSentimentScore, Pet_Class.PhotoAmt,
                                 Pet_Class.Quantity, Pet_Class.State, Pet_Class.Sterilized,
                                 Pet_Class.Vaccinated, Pet_Class.VideoAmt, Pet_Class.DescriptionLength,
-                                Pet_Class.BreedName1, Pet_Class.Breed2, Pet_Class.Color1,
-                                Pet_Class.Color2, Pet_Class.Color3, Pet_Class.StateName)\
+                                Pet_Class.BreedName1, Pet_Class.BreedName2, Pet_Class.ColorName1,
+                                Pet_Class.ColorName2, Pet_Class.ColorName3, Pet_Class.StateName)\
                                 .filter(Pet_Class.AdoptionSpeed == speed).all()
         
         # Transform table into dictionary
@@ -112,17 +112,19 @@ def getdb(cols):
                     'Health': [result[12] for result in results],
                     'MaturitySize': [result[13] for result in results],
                     'MeanSentimentScore': [result[14] for result in results],
-                    'Quantity': [result[15] for result in results],
-                    'State': [result[16] for result in results],
-                    'Sterilized': [result[17] for result in results],
-                    'VideoAmt': [result[18] for result in results],
-                    'DescriptionLength': [result[19] for result in results],
-                    'BreedName1': [result[20] for result in results],
-                    'BreedName2': [result[21] for result in results],
-                    'Color1': [result[22] for result in results],
-                    'Color2': [result[23] for result in results],
-                    'Color3': [result[24] for result in results],
-                    'StateName': [result[25] for result in results]
+                    'PhotoAmt': [result[15] for result in results],
+                    'Quantity': [result[16] for result in results],
+                    'State': [result[17] for result in results],
+                    'Sterilized': [result[18] for result in results],
+                    'Vaccinated': [result[19] for result in results],
+                    'VideoAmt': [result[20] for result in results],
+                    'DescriptionLength': [result[21] for result in results],
+                    'BreedName1': [result[22] for result in results],
+                    'BreedName2': [result[23] for result in results],
+                    'ColorName1': [result[24] for result in results],
+                    'ColorName2': [result[25] for result in results],
+                    'ColorName3': [result[26] for result in results],
+                    'StateName': [result[27] for result in results]
                     }
 
         # Return full dictionary for 'all' request
