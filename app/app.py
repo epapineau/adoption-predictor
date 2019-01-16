@@ -6,7 +6,7 @@ from flask import (
     request,
     redirect)
 from werkzeug.routing import BaseConverter
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy 
 
 # Flask setup
 app = Flask(__name__)
@@ -40,11 +40,17 @@ class Pet_Class(db.Model):
     RescuerID = db.Column(db.String(64))
     VideoAmt = db.Column(db.Integer)
     Description = db.Column(db.String(1000))
-    PetID = db.Column(db.String(50), primary_key=True)
+    PetID = db.Column(db.String(50), primary_key = True)
     PhotoAmt = db.Column(db.Float)
     AdoptionSpeed = db.Column(db.Integer)
-    # DescriptionLength = db.Column(db.Integer)
+    DescriptionLength = db.Column(db.Integer)
     MeanSentimentScore = db.Column(db.Float)
+    BreedName1 = db.Column(db.String(1000))
+    BreedName2 = db.Column(db.String(1000))
+    ColorName1 = db.Column(db.String(1000))
+    ColorName2 = db.Column(db.String(1000))
+    ColorName3 = db.Column(db.String(1000))
+    StateName = db.Column(db.String(1000))
 
     def __repr__(self):
         return '<Pet_Class %r>' % (self.PetID)
@@ -86,8 +92,11 @@ def getdb(cols):
                                 Pet_Class.Health, Pet_Class.MaturitySize,
                                 Pet_Class.MeanSentimentScore, Pet_Class.PhotoAmt,
                                 Pet_Class.Quantity, Pet_Class.State, Pet_Class.Sterilized,
-                                Pet_Class.Vaccinated, Pet_Class.VideoAmt).filter(Pet_Class.AdoptionSpeed == speed).all()
-
+                                Pet_Class.Vaccinated, Pet_Class.VideoAmt, Pet_Class.DescriptionLength)\
+                                .join(Pet_Class.Breed1)\
+                                .join(Breed_Class.BreedID)\
+                                .filter(Pet_Class.AdoptionSpeed == speed).all()
+        
         # Transform table into dictionary
         fullDict = {'Type': [result[0] for result in results],
                     'Name': [result[1] for result in results],
@@ -108,7 +117,12 @@ def getdb(cols):
                     'State': [result[16] for result in results],
                     'Sterilized': [result[17] for result in results],
                     'VideoAmt': [result[18] for result in results],
+                    'DescriptionLength': [result[19] for result in results],
                     }
+
+        # Return full dictionary for 'all' request
+        if (cols[0] == "all"):
+            return jsonify(fullDict)
 
         # Extract only requested portions of dictionary
         reqDict = {}
