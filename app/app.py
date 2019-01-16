@@ -57,7 +57,6 @@ class Pet_Class(db.Model):
 
 # Define class for accepting variable args
 class ListConverter(BaseConverter):
-
     def to_python(self, value):
         return value.split('+')
 
@@ -92,9 +91,9 @@ def getdb(cols):
                                 Pet_Class.Health, Pet_Class.MaturitySize,
                                 Pet_Class.MeanSentimentScore, Pet_Class.PhotoAmt,
                                 Pet_Class.Quantity, Pet_Class.State, Pet_Class.Sterilized,
-                                Pet_Class.Vaccinated, Pet_Class.VideoAmt, Pet_Class.DescriptionLength)\
-                                .join(Pet_Class.Breed1)\
-                                .join(Breed_Class.BreedID)\
+                                Pet_Class.Vaccinated, Pet_Class.VideoAmt, Pet_Class.DescriptionLength,
+                                Pet_Class.BreedName1, Pet_Class.Breed2, Pet_Class.Color1,
+                                Pet_Class.Color2, Pet_Class.Color3, Pet_Class.StateName)\
                                 .filter(Pet_Class.AdoptionSpeed == speed).all()
         
         # Transform table into dictionary
@@ -118,19 +117,25 @@ def getdb(cols):
                     'Sterilized': [result[17] for result in results],
                     'VideoAmt': [result[18] for result in results],
                     'DescriptionLength': [result[19] for result in results],
+                    'BreedName1': [result[20] for result in results],
+                    'BreedName2': [result[21] for result in results],
+                    'Color1': [result[22] for result in results],
+                    'Color2': [result[23] for result in results],
+                    'Color3': [result[24] for result in results],
+                    'StateName': [result[25] for result in results]
                     }
 
         # Return full dictionary for 'all' request
         if (cols[0] == "all"):
-            return jsonify(fullDict)
-
-        # Extract only requested portions of dictionary
-        reqDict = {}
-        for col in cols:
-            reqDict[col] = fullDict[col]
+            dictBySpeed[speed] = fullDict
+        else: 
+            # Extract only requested portions of dictionary
+            reqDict = {}
+            for col in cols:
+                reqDict[col] = fullDict[col]
+                
+            dictBySpeed[speed] = reqDict
         
-        dictBySpeed[speed] = reqDict
-
     return jsonify(dictBySpeed)
 
 # Route to serve up 
