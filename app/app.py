@@ -1,15 +1,25 @@
 # Import libraries
+import keras
 from flask import (
     Flask,
     render_template,
     jsonify,
     request,
     redirect)
+import pandas as pd
+import tensorflow as tf
+from random import randint
+from keras.models import load_model
 from werkzeug.routing import BaseConverter
 from flask_sqlalchemy import SQLAlchemy 
 
 # Flask setup
 app = Flask(__name__)
+
+# Load the model
+global graph
+graph = tf.get_default_graph()
+model = load_model('./adoption_model_trained.h5')
 
 # Connect to SQLite file
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///./db/database.sqlite"
@@ -55,6 +65,25 @@ class Pet_Class(db.Model):
     def __repr__(self):
         return '<Pet_Class %r>' % (self.PetID)
 
+class Breed_Class(db.Model):
+    __tablename__ = 'Breed_Labels'
+
+    BreedID = db.Column(db.Integer, primary_key = True)
+    Type = db.Column(db.Integer)
+    BreedName = db.Column(db.String(1000))
+
+    def __repr__(self):
+        return '<Breed_Class %r>' % (self.BreedID)
+
+class Color_Class(db.Model):
+    __tablename__ = 'Color_Labels'
+
+    ColorID = db.Column(db.Integer, primary_key = True)
+    ColorName = db.Column(db.String(1000))
+
+    def __repr__(self):
+        return '<Color_Class %r>' % (self.ColorID)
+
 # Define class for accepting variable args
 class ListConverter(BaseConverter):
     def to_python(self, value):
@@ -79,22 +108,21 @@ def index():
 # Route to serve up SQLite file
 @app.route("/api/train-data/<list:cols>")
 def getdb(cols):
-
     # Create dictionaries of desired column for each adoption speed
     dictBySpeed = {}
     for speed in range(5):
         # Query for full table
         results = db.session.query(Pet_Class.Type, Pet_Class.Name, Pet_Class.Age,
-                                Pet_Class.Breed1, Pet_Class.Breed2, Pet_Class.Color1,
-                                Pet_Class.Color2, Pet_Class.Color3, Pet_Class.Dewormed,
-                                Pet_Class.Fee, Pet_Class.FurLength, Pet_Class.Gender,
-                                Pet_Class.Health, Pet_Class.MaturitySize,
-                                Pet_Class.MeanSentimentScore, Pet_Class.PhotoAmt,
-                                Pet_Class.Quantity, Pet_Class.State, Pet_Class.Sterilized,
-                                Pet_Class.Vaccinated, Pet_Class.VideoAmt, Pet_Class.DescriptionLength,
-                                Pet_Class.BreedName1, Pet_Class.BreedName2, Pet_Class.ColorName1,
-                                Pet_Class.ColorName2, Pet_Class.ColorName3, Pet_Class.StateName)\
-                                .filter(Pet_Class.AdoptionSpeed == speed).all()
+                                   Pet_Class.Breed1, Pet_Class.Breed2, Pet_Class.Color1,
+                                   Pet_Class.Color2, Pet_Class.Color3, Pet_Class.Dewormed,
+                                   Pet_Class.Fee, Pet_Class.FurLength, Pet_Class.Gender,
+                                   Pet_Class.Health, Pet_Class.MaturitySize,
+                                   Pet_Class.MeanSentimentScore, Pet_Class.PhotoAmt,
+                                   Pet_Class.Quantity, Pet_Class.State, Pet_Class.Sterilized,
+                                   Pet_Class.Vaccinated, Pet_Class.VideoAmt, Pet_Class.DescriptionLength,
+                                   Pet_Class.BreedName1, Pet_Class.BreedName2, Pet_Class.ColorName1,
+                                   Pet_Class.ColorName2, Pet_Class.ColorName3, Pet_Class.StateName)\
+                            .filter(Pet_Class.AdoptionSpeed == speed).all()
         
         # Transform table into dictionary
         fullDict = {'Type': [result[0] for result in results],
@@ -139,6 +167,63 @@ def getdb(cols):
             dictBySpeed[speed] = reqDict
         
     return jsonify(dictBySpeed)
+
+# Route to serve up breed table
+@app.route("/api/train-data/breeds")
+def getbreeds():
+    results = db.session.query(Breed_Class.BreedID, Breed_Class.Type, Breed_Class.BreedName).all()
+    breedDict = {'BreedID': [result[0] for result in results],
+                 'Type': [result[1] for result in results],
+                 'BreedName': [result[2] for result in results]}
+    return jsonify(breedDict)
+
+# Route to serve up color table
+@app.route("/api/train-data/colors")
+def getcolorss():
+    results = db.session.query(Breed_Class.BreedID, Breed_Class.Type, Breed_Class.BreedName).all()
+    colorDict = {'ColorID': [result[0] for result in results],
+                 'ColorName': [result[1] for result in results]}
+    return jsonify(colorDict)
+
+# Route to send data
+@app.route("/send-predict", methods=['GET', 'POST'])
+def predict():
+    if request.method == 'POST':
+        data = {"success": False}
+
+        # Get form data
+        formValues = {
+            'Type': request.form["petType"],
+            'Age': request.form["petAge"],
+            # 'Breed1': request.form["petBreed"],
+            'Breed1': 265,
+            'Breed2': 266,
+            'Gender': request.form["petGender"],
+            # 'Color1' = request.form["petColor"],
+            'Color1': 2,
+            'Color2': 5,
+            'Color3': 0,
+            'MaturitySize': request.form["petSize"],
+            'FurLength': request.form["petFur"],
+            'Vaccinated': request.form["petVaccinate"],
+            'Dewormed': request.form["petWorm"],
+            'Sterilized': request.form["petSterile"],
+            'Health': request.form["petHealth"],
+            'Quantity': 1,
+            'Fee': request.form["petFee"],
+            'State': 41326,
+            'VideoAmt': 0,
+            'PhotoAmt': request.form["petPhoto"]
+            # petDescription = request.form["petDescription"]
+        }
+
+        # formDf = pd.DataFrame(formValues, index=[0])
+        # prediction = model.predict_classes(formDf)
+
+        prediction = randint(0, 5)
+        preDict = {'Prediction': prediction,
+                   'Accuracy': .35}
+        return render_template("prediction.html", dict = preDict)
 
 # Route to serve up 
 @app.route("/data")

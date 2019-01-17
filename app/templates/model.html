@@ -53,51 +53,165 @@
         <div class = "container bg-light rounded px-3 py-2">
             <h3>Predict Against the Model</h3>
 
-
-
             <!-- Begin Form class -->
             <div class="card bg-light mx-auto w-75 my-3">
                 <div class="card-body">
                     <h6 class="card-title">Fill out this form to run a prediction against the model. Please note that missing data will be infered.</h6>
                     <p class="card-text">
-                        <form method = "POST" action = "/send" role = "form" name = "petform">
-                            <div class="form-group px-2">
-                                <label for="inputType">Type of Pet</label>
-                                <select class="custom-select" id="inputType" name = "petType">
-                                    <option selected value="1">Dog</option>
-                                    <option value="2">Cat</option>
-                                    <option value="3">Bird</option>
-                                    <option value="4">Fish</option>
-                                </select>
+                        <form method = "POST" action = "/send-predict" role = "form" name = "petform">
+                            <h6>Physical Characteristics</h6>
+                            <hr>
+                            <div class = "row">
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputType">Type of Pet</label>
+                                        <select class="custom-select" id="inputType" name = "petType">
+                                            <option selected value="1">Dog</option>
+                                            <option value="2">Cat</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputAge">Pet Age (months)</label>
+                                        <input type="number" class="form-control" id="inputAge" name="petAge" placeholder="1" min="1" max ="250">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group px-2">
-                                <label for="inputName">Pet Name</label>
-                                <input type="text" class="form-control" id="inputName" name="petName" placeholder="Fluffy">
+                            <div class = "row">
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputGender">Gender</label>
+                                        <select class="custom-select" id="inputGender" name="petGender">
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                            <option value="3">Not Sure / Mixed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputBreed">Pet Breed</label>
+                                        <select class="custom-select" id="inputBreed" name="petBreed">
+                                            <!-- D3 breed drop drown -->
+                                            <option value="0">Breed</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group px-2">
-                                <label for="inputCity">City</label>
-                                <input type="text" class="form-control" id="inputCity" name="petCity" placeholder="Chicago">
+                            <div class = "row">
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputFur">Fur Length</label>
+                                        <select class="custom-select" id="inputFur" name="petFur">
+                                            <option value="1">Short</option>
+                                            <option value="2">Medium</option>
+                                            <option value="3">Long</option>
+                                            <option value="0">Not Specified</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputColor">Primary Color</label>
+                                        <select class="custom-select" id="inputColor" name="petColor">
+                                            <!-- D3 breed drop drown -->
+                                            <option value="0">Color</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group px-2">
-                                <label for="inputCountry">Country</label>
-                                <select class="custom-select" id="inputCountry" name="petCountry">
-                                    <!-- D3 country drop down -->
-                                </select>
+                            <div class = "row">
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputSize">Size at Maturity</label>
+                                        <select class="custom-select" id="inputSize" name="petSize">
+                                            <option value="1">Small</option>
+                                            <option value="2">Medium</option>
+                                            <option value="3">Large</option>
+                                            <option value="4">Extra Large</option>
+                                            <option value="0">Not Specified</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class = "col">
+
+                                </div>
+                            </div>
+                            <h6>Health Status</h6>
+                            <hr>
+                            <div class = "row">
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputHealth">Health</label>
+                                        <select class="custom-select" id="inputHealth" name="petHealth">
+                                            <option value="1">Healthy</option>
+                                            <option value="2">Minor Injury</option>
+                                            <option value="3">Serious Injury</option>
+                                            <option value="0">Not Specified</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputSterile">Sterilized</label>
+                                        <select class="custom-select" id="inputSterile" name="petSterile">
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                            <option value="3">Not Sure</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = "row">
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputVaccinate">Vaccinated</label>
+                                        <select class="custom-select" id="inputVaccinate" name="petVaccinate">
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                            <option value="3">Not Sure</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputWorm">Dewormed</label>
+                                        <select class="custom-select" id="inputWorm" name="petWorm">
+                                            <option value="1">Yes</option>
+                                            <option value="2">No</option>
+                                            <option value="3">Not Sure</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6>Adoption Listing</h6>
+                            <hr>
+                            <div class = "row">
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputFee">Fee</label>
+                                        <input type="number" class="form-control" id="inputFee" name="petFee" placeholder="1" min="0" max ="1000">
+                                    </div>
+                                </div>
+                                <div class = "col">
+                                    <div class="form-group px-2">
+                                        <label for="inputPhoto">Number of Photos</label>
+                                        <input type="number" class="form-control" id="inputPhoto" name="petPhoto" placeholder="1" min="1" max ="6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = "form-group px-2">
+                                <label for="inputDescription">Description</label>
+                                <input type="text" class="form-control" id="inputDescription" name="petDescription" placeholder="description">
                             </div>
                             <div class="form-group px-2">
                                 <input type="submit" value="submit" class="btn btn-primary rounded">
-                            </div>
+                            </div>                            
                         </form>
                     </p>
                 </div>
             </div>  <!-- End Card Class-->
-
-
-
-
-
-
-
         </div>
     </div>
 </body>
@@ -106,4 +220,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+<script src="/static/js/populate-form.js"></script>
 </html>
